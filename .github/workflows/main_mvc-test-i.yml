@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: mvctestiacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_fe73da2150cd4b5782d4ef09bd13c8c5 }}/mvctest:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./MvcTest/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
