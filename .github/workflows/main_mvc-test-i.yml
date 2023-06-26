@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://mvctestacr.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_51f1b8187e054172ac67b106b907ebf8 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_39749ce9623d4f92acd04c68c9f86c2c }}
+        registry: https://mvctestiacr.azurecr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_fe73da2150cd4b5782d4ef09bd13c8c5 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_5e98568f05804f1aa7d90b0e988f1ba6 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: mvctestacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_51f1b8187e054172ac67b106b907ebf8 }}/mvc-test:${{ github.sha }}
+        tags: mvctestiacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_fe73da2150cd4b5782d4ef09bd13c8c5 }}/mvctest:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'mvc-test-i'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_0ac8cb7ee9ca4987875182ec36c5ebcb }}
-        images: 'mvctestacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_51f1b8187e054172ac67b106b907ebf8 }}/mvc-test:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_49363a2d801c4f349fed8b0749dd70bb }}
+        images: 'mvctestiacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_fe73da2150cd4b5782d4ef09bd13c8c5 }}/mvctest:${{ github.sha }}'
