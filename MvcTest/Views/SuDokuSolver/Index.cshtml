@@ -1,0 +1,47 @@
+﻿@using MvcTest.MathLibrary;
+@model MvcTest.Models.SudokuInputViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form method="post">
+
+
+    <table>
+        @for(int outerY = 0; outerY < 3; outerY++)
+        {
+            <tr>
+                @for(int outerX = 0; outerX < 3; outerX++) 
+                {
+                    <td class="sudoku-square">
+                        <table>
+                            @for (int innterY = 0; innterY < 3; innterY++)
+                            {
+                                <tr>
+                                    @for (int innerX = 0; innerX < 3; innerX++)
+                                    {
+                                        var cell = @Model.GetCell(outerX * 3 + innerX, outerY * 3 + innterY); 
+                                        <td>
+                                            <input type="text" class="sudoku-input" maxlength="1" 
+                                            name="@cell.CellName"
+                                            value="@cell.CellValueString" />
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+
+
+
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+    <input type="submit" name="submit" />
+</form>
+
+@Model.Result
+

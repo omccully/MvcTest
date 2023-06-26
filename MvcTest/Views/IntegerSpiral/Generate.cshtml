@@ -12,9 +12,11 @@
         <tr>
             @for (int j = 0; j < Model.Width; j++)
             {
-                <td style="background-color:@Model.GetCell(i, j).CellBackgroundColor">@Model.GetCell(i, j).DisplayValue</td>
+                var cell = Model.GetCell(i, j);
+                
+                <td style="background-color:@cell.CellBackgroundColor">@cell.DisplayValue</td>
             }
         </tr>
     }
-
+    <input type="submit" name="submit" />
 </table>
