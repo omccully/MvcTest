@@ -9,13 +9,11 @@ namespace MvcTest.Controllers
     {
         public IActionResult Index(int width=0, bool clockwise=false)
         {
-            var pageVm = new IntegerSpiralPageViewModel()
-            {
+            var pageVm = new IntegerSpiralPageViewModel();
 
-            };
             if(width != 0)
             {
-                if(width > 500)
+                if(width > 250)
                 {
                     pageVm.ErrorMessage = "Width too large";
                 }
