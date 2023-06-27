@@ -2,6 +2,8 @@
 
 Testing with various things like MVC, Docker, CI/CD etc.
 
+Pushes to the main branch trigger a new container build with GitHub Actions and a deployment to Azure App Service here: https://mvc-test-i.azurewebsites.net/
+
 ## Run with Docker
 
 ```bash
