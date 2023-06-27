@@ -1,24 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MvcTest.MathLibrary;
 using MvcTest.Models;
+using System.Reflection;
 
 namespace MvcTest.Controllers
 {
     public class IntegerSpiralController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int width=0, bool clockwise=false)
         {
-            return View();
-        }
-
-        public IActionResult Generate(GenerateSpiralModel model)
-        {
-            if(model.Width > 500)
+            var pageVm = new IntegerSpiralPageViewModel()
             {
-                throw new Exception("Width too large");
+
+            };
+            if(width != 0)
+            {
+                if(width > 500)
+                {
+                    pageVm.ErrorMessage = "Width too large";
+                }
+                else if(width % 2 == 0)
+                {
+                    pageVm.ErrorMessage = "Width must be odd";
+                }
+                else
+                {
+                    var spiral = new IntegerSpiralViewModel(width, clockwise);
+                    pageVm.Spiral = spiral;
+                }
             }
-            var spiral = new IntegerSpiralViewModel(model.Width);
-            ViewData.Model = spiral;
+
+            ViewData.Model = pageVm;
             return View();
         }
     }

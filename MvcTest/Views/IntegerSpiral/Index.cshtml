@@ -1,14 +1,43 @@
-﻿
+﻿@model MvcTest.Models.IntegerSpiralPageViewModel
 @{
     ViewData["Title"] = "Generate Integer Spiral";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<form action="/integerspiral/generate" method="post">
+<form>
     <label for="Width">Width</label>
-    <input type="text" name="Width" />
+    <input type="text" name="width" value="@Model.Spiral?.Width" autofocus="autofocus" />
 
-    <input type="submit" name="submit" />
+    @*<input type="checkbox" name="clockwise" /> Clockwise*@
+
+    <input type="submit" />
 </form>
 
+@if(Model.ErrorMessage != null) 
+{
+    <div class="error-message">
+        <h2>Error</h2>
+        <p>@Model.ErrorMessage</p>
+    </div>
+    
+}
+
+@if(Model.Spiral != null)
+{
+    <h2>Integer spiral size @Model.Spiral.Width</h2>
+
+    <table class="spiral-table">
+        @for (int i = 0; i < @Model.Spiral.Width; i++)
+        {
+            <tr>
+                @for (int j = 0; j < @Model.Spiral.Width; j++)
+                {
+                    var cell = Model.Spiral.GetCell(i, j);
+
+                    <td style="background-color:@cell.CellBackgroundColor">@cell.DisplayValue</td>
+                }
+            </tr>
+        }
+    </table>
+}
