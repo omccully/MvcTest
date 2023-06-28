@@ -1,6 +1,6 @@
 # MVC Test
 
-Testing with various things like MVC, Docker, CI/CD etc.
+Testing with various things like MVC, Docker, CI/CD etc, authentication.
 
 Pushes to the main branch trigger a new container build with GitHub Actions and a deployment to Azure App Service here: https://mvc-test-i.azurewebsites.net/
 

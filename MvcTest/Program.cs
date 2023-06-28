@@ -21,6 +21,7 @@ namespace MvcTest
                     MicrosoftAccountDefaults.AuthenticationScheme;
             }).AddCookie().AddMicrosoftAccount(microsoftOptions =>
             {
+                //microsoftOptions.
                 microsoftOptions.ClientId = builder.Configuration.GetRequiredValue("Authentication:Microsoft:ClientId");
                 microsoftOptions.ClientSecret = builder.Configuration.GetRequiredValue("Authentication:Microsoft:ClientSecret");
             });
