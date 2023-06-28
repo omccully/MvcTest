@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
+using MvcTest.Library;
+
 namespace MvcTest
 {
     public class Program
@@ -8,6 +12,18 @@ namespace MvcTest
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme =
+                    CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme =
+                    MicrosoftAccountDefaults.AuthenticationScheme;
+            }).AddCookie().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = builder.Configuration.GetRequiredValue("Authentication:Microsoft:ClientId");
+                microsoftOptions.ClientSecret = builder.Configuration.GetRequiredValue("Authentication:Microsoft:ClientSecret");
+            });
 
             var app = builder.Build();
 
