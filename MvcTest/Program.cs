@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
+using Microsoft.AspNetCore.HttpOverrides;
 using MvcTest.Library;
 
 namespace MvcTest
@@ -9,6 +10,12 @@ namespace MvcTest
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -25,6 +32,7 @@ namespace MvcTest
                 if (callback != null)
                 {
                     microsoftOptions.CallbackPath = callback;
+                    
                 }
                 //microsoftOptions.
                 microsoftOptions.ClientId = builder.Configuration.GetRequiredValue("Authentication:Microsoft:ClientId");
@@ -37,8 +45,13 @@ namespace MvcTest
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseForwardedHeaders();
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+            else
+            {
+                app.UseForwardedHeaders();
             }
 
             app.UseHttpsRedirection();
