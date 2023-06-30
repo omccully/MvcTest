@@ -23,6 +23,17 @@ namespace MvcTest.Controllers
             return View();
         }
 
+        public IActionResult Debug()
+        {
+            //string headers = String.Empty;
+            //foreach (var kvp in Request.Headers)
+            //    headers += kvp.Key + "=" + kvp.Value + Environment.NewLine;
+            ViewData["HeadersDebug"] = Request.Headers;
+            return View();
+        }
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
