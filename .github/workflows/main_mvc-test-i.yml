@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set release version
       run: |
-        echo "BUILD_BUILDNUMBER=$(date --rfc-3339=date)" >> ${GITHUB_ENV}"
+        echo "BUILD_BUILDNUMBER=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
