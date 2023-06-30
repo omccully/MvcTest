@@ -8,7 +8,7 @@ namespace MvcTest.Controllers
         public IActionResult Login()
         {
             var props = new AuthenticationProperties();
-            props.RedirectUri = "https://mvc-test-i.azurewebsites.net/Auth/Success";
+            props.RedirectUri = "/Auth/Success";
 
             return Challenge(props);
         }
