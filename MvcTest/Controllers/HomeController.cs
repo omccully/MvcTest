@@ -25,9 +25,8 @@ namespace MvcTest.Controllers
 
         public IActionResult Debug()
         {
-            //string headers = String.Empty;
-            //foreach (var kvp in Request.Headers)
-            //    headers += kvp.Key + "=" + kvp.Value + Environment.NewLine;
+            
+
             ViewData["HeadersDebug"] = Request.Headers;
             return View();
         }

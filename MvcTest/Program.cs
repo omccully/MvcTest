@@ -54,6 +54,8 @@ namespace MvcTest
                 app.UseForwardedHeaders();
             }
 
+            app.UseHttpLogging();
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
