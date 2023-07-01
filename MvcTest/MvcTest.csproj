@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>c325cb5f-f4fc-42d6-8a84-17fbd0085cfc</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">1.0.0.5-dev</Version>
+    <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">1.0.0.6-dev</Version>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
   </PropertyGroup>
 

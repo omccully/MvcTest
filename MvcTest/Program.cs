@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.AspNetCore.HttpOverrides;
 using MvcTest.Library;
+using System.Net;
 
 namespace MvcTest
 {
@@ -10,9 +11,14 @@ namespace MvcTest
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+
             builder.Services.Configure<ForwardedHeadersOptions>(options =>
             {
+                string? proxy = builder.Configuration["TrustedProxyAddress"];
+                if (proxy != null)
+                {
+                    options.KnownProxies.Add(IPAddress.Parse(proxy));
+                }
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
@@ -51,6 +57,14 @@ namespace MvcTest
             }
             else
             {
+                app.Use((context, next) =>
+                {
+                    // setting correct scheme when reverse proxy is in front of the app
+                    // in productionm, only HTTPS should be allowed by the reverse proxy
+                    context.Request.Scheme = "https";
+                    return next(context);
+                });
+
                 app.UseForwardedHeaders();
             }
 
