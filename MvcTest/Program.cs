@@ -50,13 +50,6 @@ namespace MvcTest
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseForwardedHeaders();
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-            else
-            {
                 app.Use((context, next) =>
                 {
                     // setting correct scheme when reverse proxy is in front of the app
@@ -65,6 +58,13 @@ namespace MvcTest
                     return next(context);
                 });
 
+                app.UseExceptionHandler("/Home/Error");
+                app.UseForwardedHeaders();
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+            else
+            {
                 app.UseForwardedHeaders();
             }
 

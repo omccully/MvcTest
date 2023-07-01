@@ -4,12 +4,14 @@
 @{
 }
 
-<p>User endpoint: @ViewData["UserEndpoint"]</p>
+@foreach (var kvp in (@ViewData["PropertiesDict"] as Dictionary<string, string>)!)
+{
+    <p>@kvp</p>
+}
 
-<p>Scheme: @ViewData["Scheme"]</p>
+<br/>
 
 @foreach (var kvp in (@ViewData["HeadersDebug"] as IHeaderDictionary)!)
 {
     <p>@kvp</p>
-
 }

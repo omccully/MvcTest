@@ -25,9 +25,17 @@ namespace MvcTest.Controllers
 
         public IActionResult Debug()
         {
-            ViewData["Scheme"] = Request.Scheme;
-            ViewData["UserEndpoint"] = Request.HttpContext.Connection.RemoteIpAddress + 
-                ":" + Request.HttpContext.Connection.RemotePort;
+            ViewData["PropertiesDict"] = new Dictionary<string,string>()
+            {
+                { "Request.Host", Request.Host.ToString() },
+                { "Request.Path", Request.Path.ToString() },
+                { "Request.PathBase", Request.PathBase.ToString() },
+                { "Request.Protocol", Request.Protocol.ToString() },
+                { "Request.QueryString", Request.QueryString.ToString() },
+                { "Request.Scheme", Request.Scheme.ToString() },
+                { "Request.HttpContext.Connection.RemoteIpAddress", Request.HttpContext.Connection.RemoteIpAddress?.ToString() },
+                { "Request.HttpContext.Connection.RemotePort", Request.HttpContext.Connection.RemotePort.ToString() },
+            };  
 
             ViewData["HeadersDebug"] = Request.Headers;
             return View();
