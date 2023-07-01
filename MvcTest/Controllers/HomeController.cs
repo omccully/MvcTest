@@ -25,7 +25,7 @@ namespace MvcTest.Controllers
 
         public IActionResult Debug()
         {
-            var request = Request;
+            ViewData["Scheme"] = Request.Scheme;
             ViewData["UserEndpoint"] = Request.HttpContext.Connection.RemoteIpAddress + 
                 ":" + Request.HttpContext.Connection.RemotePort;
 
