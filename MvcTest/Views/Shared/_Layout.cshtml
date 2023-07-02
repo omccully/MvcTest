@@ -34,7 +34,8 @@
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">@User.Identity?.Name</a>
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Index">
+                                    @User.Identity?.Name (Authenticated via @User.Identity?.AuthenticationType) -- @User.Identity?.TryGetEmail()</a>
                             </li>
 
                             <li class="nav-item">

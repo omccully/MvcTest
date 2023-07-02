@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.AspNetCore.HttpOverrides;
 using MvcTest.Library;
@@ -30,19 +31,29 @@ namespace MvcTest
             {
                 options.DefaultScheme =
                     CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme =
-                    MicrosoftAccountDefaults.AuthenticationScheme;
-            }).AddCookie().AddMicrosoftAccount(microsoftOptions =>
+
+                //options.DefaultChallengeScheme =
+                //    GoogleDefaults.AuthenticationScheme;
+                //options.DefaultChallengeScheme =
+                //    GoogleAccountDefaults.
+                //MicrosoftAccountDefaults.AuthenticationScheme;
+            }).AddCookie()
+            .AddMicrosoftAccount(microsoftOptions =>
             {
                 string? callback = builder.Configuration["Authentication:Microsoft:CallbackPath"];
                 if (callback != null)
                 {
                     microsoftOptions.CallbackPath = callback;
-                    
+
                 }
                 //microsoftOptions.
                 microsoftOptions.ClientId = builder.Configuration.GetRequiredValue("Authentication:Microsoft:ClientId");
                 microsoftOptions.ClientSecret = builder.Configuration.GetRequiredValue("Authentication:Microsoft:ClientSecret");
+            })
+            .AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = builder.Configuration.GetRequiredValue("Authentication:Google:ClientId");
+                googleOptions.ClientSecret = builder.Configuration.GetRequiredValue("Authentication:Google:ClientSecret");
             });
 
             var app = builder.Build();
